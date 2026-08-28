@@ -1,3 +1,5 @@
+import dotenv from 'dotenv'
+
 export class Environment {
     static readonly ADMIN_USERNAME = Environment.getRequired('ADMIN_USERNAME')
     static readonly ADMIN_PASSWORD = Environment.getRequired('ADMIN_PASSWORD')
@@ -6,7 +8,7 @@ export class Environment {
         const value = process.env[key]
 
         if (!value) {
-            throw new Error('Environment variable ' + key + 'does not exist')
+            throw new Error('Environment variable ' + key + ' does not exist')
         }
         return value
     }
