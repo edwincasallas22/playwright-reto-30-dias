@@ -7,8 +7,8 @@ on:
 jobs:
   test:
     env:
-      ADMIN_USERNAME: ${{ secrets.TEST_USER }}
-      ADMIN_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+      ADMIN_USERNAME: ${{ secrets.ADMIN_USERNAME }}
+      ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
