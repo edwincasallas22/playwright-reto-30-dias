@@ -8,12 +8,11 @@ test.describe('Verify HRM page', () => {
     test('Verify successful login', async ({ page }) => {
 
         const loginPage = new LoginPage(page)
-        await loginPage.doLogin('Admin', 'admin123')
+        await loginPage.loginAsAdmin()
 
         const sidePanel = new SidePanel(page)
         await sidePanel.clickOnOption(SideMenuOption.RECRUITMENT)
         await sidePanel.clickOnOption(SideMenuOption.BUZZ)
-        await sidePanel.clickOnOption(SideMenuOption.LEAVE)
         await sidePanel.clickOnOption(SideMenuOption.MY_INFO)
         await sidePanel.clickOnOption(SideMenuOption.PIM)
 
@@ -49,10 +48,10 @@ test.describe('Verify HRM page', () => {
         const loginPage = new LoginPage(page)
         await loginPage.doLogin('Admin', 'admin123')
 
-        await page.getByRole('textbox', { name: 'Search' }).fill(SideMenuOption.LEAVE)
+        await page.getByRole('textbox', { name: 'Search' }).fill(SideMenuOption.DASHBOARD)
 
         const result = await page.getByLabel('Sidepanel').locator('ul.oxd-main-menu').innerText()
-        expect(result).toEqual(SideMenuOption.LEAVE)
+        expect(result).toEqual(SideMenuOption.DASHBOARD)
     })
 
 })

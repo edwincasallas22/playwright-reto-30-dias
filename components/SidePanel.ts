@@ -27,7 +27,6 @@ export class SidePanel {
 export enum SideMenuOption {
     ADMIN = 'Admin',
     PIM = 'PIM',
-    LEAVE = 'Leave',
     TIME = 'Time',
     RECRUITMENT = 'Recruitment',
     MY_INFO = 'My info',
