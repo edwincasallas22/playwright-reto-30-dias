@@ -10,6 +10,8 @@ test.describe('Verify HRM page', () => {
         const loginPage = new LoginPage(page)
         await loginPage.loginAsAdmin()
 
+        //await page.goto("/web/index.php/dashboard/index")
+
         const sidePanel = new SidePanel(page)
         await sidePanel.clickOnOption(SideMenuOption.RECRUITMENT)
         await sidePanel.clickOnOption(SideMenuOption.BUZZ)

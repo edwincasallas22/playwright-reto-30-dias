@@ -156,9 +156,5 @@ test.describe('Verify HRM page', () => {
             await expect(allBodyRows.nth(i).getByRole('cell').nth(2)).toContainText('Admin')
         }
 
-
-
-
-
     })
 })
