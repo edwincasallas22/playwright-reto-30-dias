@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test'
 import { LoginPage } from '../pageobjects/LoginPage'
 import { SideMenuOption, SidePanel } from '../components/SidePanel'
+import { TopBarMenu } from '../components/top-bar-menu/TopBarMenu'
 
 test.describe('Verify HRM page', () => {
 
@@ -200,5 +201,60 @@ test.describe('Verify HRM page', () => {
 
         console.log("Total is: ", total)
 
+    })
+
+
+    test('Add new user', async ({ page }) => {
+        const randomUserName = 'goku' + crypto.randomUUID()
+        const password = 'R4mdom45..*'
+        const employeeToSearch = 'Qwerty LName'
+
+
+        const loginPage = new LoginPage(page)
+        await loginPage.doLogin('Admin', 'admin123')
+
+        await expect(page.getByRole('link', { name: 'Admin' })).toBeVisible()
+
+
+        const sidePanel = new SidePanel(page)
+        await sidePanel.clickOnOption(SideMenuOption.ADMIN)
+
+        const topBarMenu = new TopBarMenu(page)
+        await topBarMenu.userManagement.clickOnUsersOption()
+        await page.getByText('Add').click()
+        await page.locator('div.oxd-grid-item--gutters')
+            .filter({ has: page.getByText('User Role') })
+            .locator('div.oxd-select-text-input')
+            .click()
+
+        await page.getByText('ESS', { exact: true }).click()
+        await page.getByRole('textbox', { name: 'Type for hints...' }).fill(employeeToSearch)
+        await page.getByText('Qwerty Qwerty LName', { exact: true }).click()
+
+        await page.locator('div.oxd-grid-item--gutters')
+            .filter({ has: page.getByText('Status') })
+            .locator('div.oxd-select-text-input')
+            .click()
+        await page.getByText('Enabled', { exact: true }).click()
+
+        await page.locator('div.oxd-grid-item--gutters')
+            .filter({ has: page.getByText('Username') })
+            .getByRole('textbox')
+            .fill(randomUserName)
+
+        await page.locator('div.oxd-grid-item--gutters')
+            .filter({ has: page.getByText('Password', { exact: true }) })
+            .getByRole('textbox')
+            .fill(password)
+
+        await page.locator('div.oxd-grid-item--gutters')
+            .filter({ has: page.getByText('Confirm Password', { exact: true }) })
+            .getByRole('textbox')
+            .fill(password)
+
+
+        await page.getByRole('button', { name: 'Save' }).click()
+
+        await expect(page.locator('p.oxd-text--toast-message')).toHaveText('Successfully Saved')
     })
 })
